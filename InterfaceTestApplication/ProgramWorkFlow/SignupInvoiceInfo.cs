@@ -14,7 +14,7 @@ namespace InterfaceTestApplication.ProgramWorkFlow
 
             double day = PricePerDay();
 
-            RentalService rentalService = new RentalService(hour, day);
+            RentalService rentalService = new RentalService(hour, day, new BrazilTaxService());
 
             return rentalService;
         }

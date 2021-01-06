@@ -8,12 +8,13 @@ namespace InterfaceTestApplication.Services
         public double PricePerHour { get; private set; }
         public double PricePerDay { get; private set; }
 
-        private BrazilTaxService _brazilTaxService = new BrazilTaxService();
+        private ITaxService TaxService;
 
-        public RentalService(double pricePerHour, double pricePerDay)
+        public RentalService(double pricePerHour, double pricePerDay, ITaxService taxService)
         {
             PricePerHour = pricePerHour;
             PricePerDay = pricePerDay;
+            TaxService = taxService;
         }
 
         public void ProcessInvoice(CarRental car)
@@ -32,7 +33,7 @@ namespace InterfaceTestApplication.Services
                 basicPayment = PricePerDay * Math.Ceiling(totalDuration.TotalDays);            
             }
 
-            tax = _brazilTaxService.Tax(basicPayment);
+            tax = TaxService.Tax(basicPayment);
 
             car.Invoice = new Invoice(basicPayment, tax);
 
