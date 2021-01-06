@@ -9,16 +9,21 @@ namespace InterfaceTestApplication
     {
         static void Main(string[] args)
         {
+            try
+            {
+                CarRental newCar = SignupRentalInfo.CarRegistration();
 
-            CarRental newCar = SignupRentalInfo.CarRegistration();
+                RentalService rentalService = SignupInvoiceInfo.InvoiceRegistration();
 
-            RentalService rentalService = SignupInvoiceInfo.InvoiceRegistration();
+                rentalService.ProcessInvoice(newCar);
 
-            rentalService.ProcessInvoice(newCar);
-
-            Console.WriteLine("Invoice:");
-            Console.WriteLine($"{newCar.Invoice}");
-            
+                Console.WriteLine("Invoice:");
+                Console.WriteLine($"{newCar.Invoice}");
+            }
+            catch (Exception e) 
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
